@@ -4,8 +4,17 @@ import re
 
 def sync_keywords_with_notes() -> Dict[str, Any]:
     """
-    Scan all notes in notes/ for [[Keyword]] links, compare to keywords.md, append missing keywords, and remove unused ones.
-    Returns a dict with the sync result.
+    Synchronize the [[Keyword]] glossary (keywords.md) with all [[Keyword]] links found in notes in the 'notes/' directory.
+    - Scans all notes for [[Keyword]] links.
+    - Adds missing keywords to keywords.md and removes unused ones.
+    Returns:
+        dict: {
+            'success': bool,           # True if operation succeeded
+            'added': list[str],        # Keywords added to the glossary
+            'removed': list[str],      # Keywords removed from the glossary
+            'final_keywords': list[str], # Final sorted list of keywords in the glossary
+            'error': str | None        # Error message if success is False
+        }
     """
     notes_dir = "notes"
     keywords_file = "keywords.md"

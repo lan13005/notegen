@@ -9,7 +9,14 @@ from notegen.file_utils import sanitize_filename
 console = Console()
 
 def extract_video_id(url):
-    """Extract video ID from various YouTube URL formats."""
+    """
+    Extract the YouTube video ID from a given URL.
+    Supports both standard and shortened YouTube URL formats.
+    Args:
+        url (str): The YouTube video URL.
+    Returns:
+        str | None: The video ID if found, otherwise None.
+    """
     parsed_url = urlparse(url)
     if parsed_url.hostname == 'youtu.be':
         return parsed_url.path[1:]
@@ -19,7 +26,17 @@ def extract_video_id(url):
     return None
 
 def process_video_metadata(url: str):
-    """Process video metadata and return formatted information."""
+    """
+    Retrieve and format metadata for a YouTube video given its URL.
+    Args:
+        url (str): The YouTube video URL.
+    Returns:
+        dict: {
+            'success': bool,           # True if operation succeeded
+            'metadata': dict,          # Video metadata (title, link, duration, views, uploader)
+            'error': str | None        # Error message if success is False
+        }
+    """
     # Validate URL
     if not url.startswith(("https://www.youtube.com/watch?v=", "https://youtu.be/")):
         return {
@@ -68,7 +85,19 @@ def process_video_metadata(url: str):
         }
 
 def process_video_transcript(url: str):
-    """Process video transcript and save it to the transcripts directory."""
+    """
+    Download and process the transcript for a YouTube video, saving it to the 'transcripts/' directory.
+    Args:
+        url (str): The YouTube video URL.
+    Returns:
+        dict: {
+            'success': bool,           # True if operation succeeded
+            'sanitized_title': str,    # Sanitized video title (used as filename)
+            'transcript_path': str,    # Path to the saved transcript file
+            'transcript_text': str,    # The full transcript text
+            'error': str | None        # Error message if success is False
+        }
+    """
     # Validate URL
     if not url.startswith(("https://www.youtube.com/watch?v=", "https://youtu.be/")):
         return {
@@ -128,7 +157,18 @@ def process_video_transcript(url: str):
         }
 
 def get_sanitized_title_from_url(url: str):
-    """Quickly extract and sanitize the video title from a YouTube URL."""
+    """
+    Extract and sanitize the video title from a YouTube URL (without downloading the video).
+    Args:
+        url (str): The YouTube video URL.
+    Returns:
+        dict: {
+            'success': bool,           # True if operation succeeded
+            'sanitized_title': str,    # Sanitized video title
+            'raw_title': str,          # Raw video title
+            'error': str | None        # Error message if success is False
+        }
+    """
     # Validate URL
     if not url.startswith(("https://www.youtube.com/watch?v=", "https://youtu.be/")):
         return {

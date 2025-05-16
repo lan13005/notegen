@@ -21,26 +21,28 @@ To generate new technical notes from YouTube videos or a list of URLs in `websit
 - ✅ **DO:** Read [keyword_concept.md](mdc:.cursor/rules/keyword_concept.mdc) to understand the concept of a [[Keyword]].
 - ✅ **DO:** Read [template.md](mdc:registry/template.md) to understand the `template` structure.
 
-Follow this process when asked to generate notes based on a set of transcripts. Execute the following process for all notes: checking for an existing note, creating a note if it does not exist, synchronize keywords between all notes and glossary, repeat for all transcripts. **Important: sychronization must occur every time a new note is generated**
+When asked to generate notes, execute the following process: get a list of unsynced transcripts, for each transcript creating a note AND THEN synchronize keywords between all notes and glossary. **Important: synchronization must occur every time a new note is generated**
 
 Detailed processing description for each transcript:
 
-1. Use `check_note_exists` tool to see if a note exists for the path to the transcript.
-   - Input: `transcript_path: str` - Path to the transcript file
+1. Use `get_unsynced_transcripts` to get a list of unsynced transcripts needing note generation.
+   - Input: No inputs
    - Response: Dictionary with keys:
      - `success: bool` - Whether the check was successful
-     - `exists: bool` - Whether the note exists
-     - `path: str | None` - Path to the note if it exists, None otherwise
+     - `paths: list[str]` - List of note paths that need to be generated (one for each transcript)
      - `error: str | None` - Error message if success is False
 
-2. If `exists` is false:
+2. For each path in `paths`:
    - Generate a summary note:
-      - Read transcript at `path`
-      - Create a summary note following `template` structure
-      - Write the summary to `path`
-      - Verify the note exists in `path`
-   - Use `sync_keywords_with_notes` tool to update keyword glossary
+      - Read the corresponding transcript (in `transcripts/`, matching the note name)
+      - Create a summary note following the [template.md](mdc:registry/template.md) structure
+      - Write the summary to the note path in `notes/`
+      - Verify the note exists at the path
+   - Use `sync_keywords_with_notes` to update the keyword glossary
      - Input: No arguments required
      - Response: Dictionary with keys:
        - `success: bool` - Whether the sync was successful
+       - `added: list[str]` - Keywords added
+       - `removed: list[str]` - Keywords removed
+       - `final_keywords: list[str]` - Final list of keywords
        - `error: str | None` - Error message if success is False
