@@ -1,0 +1,25 @@
+---
+description: Comprehensive reference for MCP tools
+globs:
+alwaysApply: false
+---
+# notegen CLI Command Reference
+
+All previous MCP commands are now available as CLI subcommands via the `notegen` command-line tool. The MCP server is no longer required for note generation or keyword management.
+
+## CLI Commands
+
+1. **notegen init**
+   - Initializes the project structure (creates `notes/`, `transcripts/`, `keywords.md`, and `websites.md` if missing).
+   - Usage: `notegen init`
+
+2. **notegen transcribe [websites.md]**
+   - Processes all unchecked YouTube URLs in `websites.md`, transcribes them, generates notes, updates their status, and synchronizes keywords.
+   - Usage: `notegen transcribe websites.md`
+   - (If `websites.md` is omitted, defaults to `websites.md` in the current directory.)
+
+3. **notegen sync**
+   - Synchronizes keywords in `keywords.md` with all `[[keywords]]` in the `notes/` folder.
+   - Usage: `notegen sync`
+
+See `notegen --help` for more details on each command.

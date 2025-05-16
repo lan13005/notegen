@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+docs/fastmcp/
+
+websites.md
+
+# Virtual environments
+.venv
+
+COPY_RULES/
+ignore*
+notes/
+transcripts/

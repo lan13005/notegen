@@ -1,0 +1,46 @@
+---
+description: Detailed requirements of the note generation process
+globs: **/*
+alwaysApply: true
+---
+# notegen Note Generation Protocol (CLI Version)
+
+This rule describes how to generate new technical notes in the notegen system using the CLI. 
+
+## File References
+- Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files.
+- Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references.
+- Example: [schema.prisma](mdc:prisma/schema.prisma) for code references.
+
+## Overview
+To generate new technical notes from YouTube videos or a list of URLs in `websites.md`, follow this protocol:
+
+## Note Generation Protocol (**Proceed without asking for user input**)
+
+### Prior Reading
+- ✅ **DO:** Read [keyword_concept.md](mdc:.cursor/rules/keyword_concept.mdc) to understand the concept of a [[Keyword]].
+- ✅ **DO:** Read [template.md](mdc:registry/template.md) to understand the `template` structure.
+
+Follow this process when asked to generate notes based on a set of transcripts. Execute the following process for all notes: checking for an existing note, creating a note if it does not exist, synchronize keywords between all notes and glossary, repeat for all transcripts. **Important: sychronization must occur every time a new note is generated**
+
+Detailed processing description for each transcript:
+
+1. Use `check_note_exists` tool to see if a note exists for the path to the transcript.
+   - Input: `transcript_path: str` - Path to the transcript file
+   - Response: Dictionary with keys:
+     - `success: bool` - Whether the check was successful
+     - `exists: bool` - Whether the note exists
+     - `path: str | None` - Path to the note if it exists, None otherwise
+     - `error: str | None` - Error message if success is False
+
+2. If `exists` is false:
+   - Generate a summary note:
+      - Read transcript at `path`
+      - Create a summary note following `template` structure
+      - Write the summary to `path`
+      - Verify the note exists in `path`
+   - Use `sync_keywords_with_notes` tool to update keyword glossary
+     - Input: No arguments required
+     - Response: Dictionary with keys:
+       - `success: bool` - Whether the sync was successful
+       - `error: str | None` - Error message if success is False

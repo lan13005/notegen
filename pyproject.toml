@@ -1,0 +1,32 @@
+[project]
+name = "notegen"
+version = "0.1.0"
+description = "Generating Notes"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Lawrence Ng", email = "lng1492@gmail.com" }
+]
+dependencies = [
+    "fastapi>=0.115.12",
+    "fastmcp>=2.3.3",
+    "numpy>=2.2.5",
+    "pandas>=2.2.3",
+    "rich>=14.0.0",
+    "youtube-transcript-api>=1.0.3",
+    "yt-dlp>=2025.4.30",
+]
+
+[project.scripts]
+ng = "notegen.cli:main"
+server = "server:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+# [tool.setuptools.packages.find]
+# where = ["."] 
+# include = [""] 
+# exclude = [] 
+# namespaces = false 

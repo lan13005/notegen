@@ -1,0 +1,59 @@
+---
+description: Detailed description of a Keyword
+globs: .cursor/rules/*.mdc
+alwaysApply: false
+---
+# The Keyword Concept
+
+**Keyword Glossary: [keywords.md](mdc:keywords.md)**
+
+To maintain consistency and semantic integrity across notes, all `[[Keyword]]` entries must be synchronized with this glossary according to the following procedure and should **always be done without asking for user permission**. 
+
+✅ **DO:** Actively attempt to **reuse keywords** connecting them to ideas in the current note.
+
+## What is a Keyword?
+A Keyword must be a well-defined technical concept that meets ALL of the following criteria:
+
+1. **Formal Definition**: Has a precise technical definition
+2. **Named Entity**: Has a specific name or title
+3. **Cross-Referenceable**: Can be meaningfully referenced across multiple notes
+4. **Domain-Specific**: Belongs to one of these categories:
+   - Mathematical/physical concept
+   - Formal theorem/principle
+   - Named algorithm/method/hypotheses/conjectures
+   - Named model class
+   - Quantitative finance term
+   - Domain-specific terminology
+   - Technical ML representation
+
+## What is not a Keyword?
+Exclude:
+- Broad fields
+- Generic strategies
+- Generic words and phrases
+- Workflow steps
+- Informal jargon
+- Concepts that are too broad or vague to be precisely defined
+
+✅ **DO:** Read [keyword_bank.md](mdc:registry/keyword_bank.md) for examples of good and bad keywords
+
+## What is a Category?
+A Category is like Keyword and is a high-level or specialized field of knowledge used to organize and connect notes. Like Keywords, Categories are always referenced as `[[Category]]` and are divided into:
+
+- **Primary Categories**: Broad technical fields (e.g., Physics, Biology, Statistics, Quantitative Finance, Engineering).
+- **Secondary Categories**: Subfields or specialized topics within a primary category (e.g., Electrodynamics, Metabolism, Gaussian Process, Options, Civil Engineering).
+
+A valid Category must:
+1. Represent a recognized field, subfield, or technical specialization.
+2. Be specific enough to meaningfully group related notes, but broad enough to encompass multiple concepts or keywords.
+
+Categories are not:
+- Individual concepts, theorems, or algorithms
+- Overly broad (e.g., "Science") or vague (e.g., "Advanced Topics")
+- Workflow steps or informal groupings
+
+✅ **DO:** Read [category_bank.md](mdc:registry/category_bank.md) for examples of primary and secondary categories
+
+## Keyword and Category Synchronization Protocol
+
+✅ **DO:** Synchronize [[Keywords]] and [[Categories]] in [keywords.md](mdc:keywords.md) glossary with all [[keywords]] and [[categories]] in [notes/](mdc:notes/) using `sync_keywords_with_notes` tool
